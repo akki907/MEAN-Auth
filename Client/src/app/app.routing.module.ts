@@ -9,14 +9,17 @@ import { ProfileComponent } from './components/profile/profile.component'
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards//notAuth.guard';
 import { BlogComponent } from './components/blog/blog.component'
+import {AdminComponent} from './components/admin/admin.component'
+import {ViewProfileComponent}from './components/view-profile/view-profile.component'
 const appRoutes :Routes = [
-    { path :'', component: HomeComponent },
+    { path :'', component: LoginComponent },
     {path:'dashboard',component: DashboardComponent,canActivate:[AuthGuard]},
+    {path:'admin',component: AdminComponent,canActivate:[AuthGuard]},
     {path:'register',component: RegisterComponent},
     {path:'login',component:LoginComponent},
     {path:'profile',component:ProfileComponent,canActivate:[AuthGuard]},
-    {path:'blog',component: BlogComponent,canActivate:[AuthGuard]},
-    {path :'**',component: HomeComponent} 
+    {path:`viewProfile`,component: ViewProfileComponent,canActivate:[AuthGuard]},
+    {path :'**',component: LoginComponent} 
 ]
 
 

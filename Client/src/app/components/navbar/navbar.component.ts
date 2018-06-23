@@ -8,20 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   constructor(
     private auth : AuthService,
     private router : Router,
     // private flashMessagesService : FlashMessagesService
-  ) { }
+  ) {
+    
+   }
+  
+
 
   onLogout(){
     this.auth.logout();
-    // this.flashMessagesService.show('you are logged out',{cssClass:'alert-info'})
     this.router.navigate(['/']) 
   }
 
   ngOnInit() {
+
   }
 
 }

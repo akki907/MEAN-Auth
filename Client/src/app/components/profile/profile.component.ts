@@ -9,15 +9,26 @@ import { Profile } from 'selenium-webdriver/firefox';
 })
 export class ProfileComponent implements OnInit {
   user;
+  isLoading = false
   constructor(
     private auth : AuthService
   ) { }
 
-  ngOnInit() {
+
+  getUserInfo(){
+    this.isLoading = true
     this.auth.getProfile().subscribe(profile =>{
       console.log(profile)
+      this.isLoading = false
       this.user = profile.user
     })
+  }
+  ngAfterViewInit(){
+    
+  }
+
+  ngOnInit() {
+    this.getUserInfo()
   }
 
 }

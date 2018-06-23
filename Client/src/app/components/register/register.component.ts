@@ -49,6 +49,12 @@ export class RegisterComponent implements OnInit {
         Validators.maxLength(15),
         this.validateUsername
       ])],
+      fullName : ['',Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(15)
+      ])],
+      role:'',
       confirm : ['',Validators.required]
     },{
       validator : this.matchingPasswords('password','confirm')
@@ -88,6 +94,7 @@ export class RegisterComponent implements OnInit {
     this.form.controls['username'].disable();
     this.form.controls['password'].disable();
     this.form.controls['confirm'].disable();
+    this.form.controls['fullName'].disable();
   }
 
   enableForm(){
@@ -95,6 +102,7 @@ export class RegisterComponent implements OnInit {
     this.form.controls['username'].enable();
     this.form.controls['password'].enable();
     this.form.controls['confirm'].enable();
+    this.form.controls['fullName'].disable();
   }
 
 
@@ -104,10 +112,18 @@ export class RegisterComponent implements OnInit {
   onRegisterSubmit(){
     this.processing = true;
     this.disableForm();
+    let role
+    if(this.form.get('role').value){
+      role = 'Admin'
+    }else{
+      role = 'user'
+    }
     let user ={
       email : this.form.get('email').value,
       username : this.form.get('username').value,
       password : this.form.get('password').value,
+      fullName : this.form.get('fullName').value,
+      role:role,
     }
     this.authService.registerUser(user).subscribe(data => {
       if(!data.success){

@@ -60,10 +60,16 @@ export class LoginComponent implements OnInit {
       }else{
         this.messageClass = 'alert alert-success';
         this.message = data.message;
-        this.authService.storeUserData(data.token,data.user)
+        let role = this.authService.storeUserData(data.token)
+
         setTimeout(()=>{
-          this.router.navigate(['/dashboard'])
-        },2000)
+          if(role == "Admin"){
+            this.router.navigate(['/admin'])
+          }else{
+            this.router.navigate(['/dashboard'])
+          }
+          
+        },1000)
       }
     })
   }

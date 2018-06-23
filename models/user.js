@@ -87,7 +87,9 @@ const passwordValidators = [
 var userSchema = new Schema({
     email:{type:String,trim:true,unique:true,required:true,lowercase:true , validate:emailValidators},
     username:{type:String,trim:true,unique:true,required:true,lowercase:true ,validate:userNameValidators},
+    fullName:{type:String,required:true},
     password:{type:String,required:true,validate:passwordValidators},
+    role:{type:String,default:'user',enum:['user','Admin']},
     CreatedAt:{type:Date,default:Date.now()},
     UpdatedAt:{type:Date}
 })
