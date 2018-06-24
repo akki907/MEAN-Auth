@@ -78,6 +78,8 @@ router.get("/allProfile", auth.requireAuth, (req, res) => {
       createdOn: -1
     })
     .populate({ path: "user", select: "email username " })
+    // .skip((req.query.skip - 1) * req.query.limit)
+    // .limit(req.query.limit)
     .then(profiles => {
       if (profiles.length == 0)
         return (
@@ -87,6 +89,46 @@ router.get("/allProfile", auth.requireAuth, (req, res) => {
         success: true,
         data: profiles
       });
+    })
+    .catch(err =>
+      res.status(404).json({
+        success: false,
+        message: err
+      })
+    );
+});
+
+router.get("/getPieChartResult", auth.requireAuth, (req, res) => {
+  Profile.find()
+    .then(profiles => {
+      if (profiles.length == 0)
+        return (
+          res, json({ success: false, message: "No Profile is created yet!" })
+        );
+      var UIDCount = 0,
+        passportCount = 0,
+        PanCardCount = 0;
+      var finalResult = [];
+      async.eachSeries(
+        profiles,
+        (item, next) => {
+          if (item.UID.id) UIDCount++;
+          if (item.passport.id) passportCount++;
+          if (item.PanCard.id) PanCardCount++;
+          next();
+        },
+        err => {
+          if (err)
+            return res.json({
+              success: false,
+              data: err
+            });
+          res.json({
+            success: false,
+            message: finalResult.concat(UIDCount, passportCount, PanCardCount)
+          });
+        }
+      );
     })
     .catch(err =>
       res.status(404).json({
@@ -164,7 +206,9 @@ router.post(`/deleteProfileInfo`, auth.requireAuth, (req, res) => {
       if (req.body.type == "PanCard") profile.PanCard = {};
       profile
         .save()
-        .then(() => res.json({ success: true, message: `${req.body.type} Deleted.` }));
+        .then(() =>
+          res.json({ success: true, message: `${req.body.type} Deleted.` })
+        );
     } else {
       return res.status(401).json({
         success: false,

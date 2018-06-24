@@ -20,6 +20,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminNavbarComponent } from './components/admin-navbar/admin-navbar.component';
 import { AdminServiceService } from './services/admin-service.service';
 import { ViewProfileComponent } from './components/view-profile/view-profile.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
     AdminComponent,
     AdminNavbarComponent,
     ViewProfileComponent,
+    AnalyticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +45,8 @@ import { ViewProfileComponent } from './components/view-profile/view-profile.com
     ReactiveFormsModule,
     HttpModule,
     FlashMessagesModule,
-    
-    // MatSidenavModule,MatInputModule, MatButtonModule, MatSelectModule, MatIconModule
+    // NgbModule.forRoot(),
+    ChartsModule
   ],
   providers: [AuthService,AuthGuard,NotAuthGuard,ProfileService,AdminServiceService],
   bootstrap: [AppComponent]

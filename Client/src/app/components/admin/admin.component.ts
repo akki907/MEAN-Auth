@@ -7,10 +7,12 @@ import { AdminServiceService } from "./../../services/admin-service.service";
 })
 export class AdminComponent implements OnInit {
   profiles
+  page = 1;
   constructor(private admin: AdminServiceService) {}
 
   getProfiles(){
-    this.admin.getAllProfile().subscribe(data=>{
+
+    this.admin.getAllProfile({skip:this.page,limit:5}).subscribe(data=>{
       
       this.profiles = data.data
     })

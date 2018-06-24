@@ -11,6 +11,7 @@ import { NotAuthGuard } from './guards//notAuth.guard';
 import { BlogComponent } from './components/blog/blog.component'
 import {AdminComponent} from './components/admin/admin.component'
 import {ViewProfileComponent}from './components/view-profile/view-profile.component'
+import {AnalyticsComponent} from './components/analytics/analytics.component'
 const appRoutes :Routes = [
     { path :'', component: LoginComponent },
     {path:'dashboard',component: DashboardComponent,canActivate:[AuthGuard]},
@@ -18,7 +19,9 @@ const appRoutes :Routes = [
     {path:'register',component: RegisterComponent},
     {path:'login',component:LoginComponent},
     {path:'profile',component:ProfileComponent,canActivate:[AuthGuard]},
-    {path:`viewProfile`,component: ViewProfileComponent,canActivate:[AuthGuard]},
+    {path:'analytics',component:AnalyticsComponent,canActivate:[AuthGuard]},
+
+    {path:'view-Profile/:id',component: ViewProfileComponent,canActivate:[AuthGuard]},
     {path :'**',component: LoginComponent} 
 ]
 

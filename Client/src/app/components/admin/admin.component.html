@@ -1,6 +1,7 @@
 <app-admin-navbar>
 </app-admin-navbar>
-<div class="container">
+<div style="margin:2%" class="">
+
   <table>
     <thead>
       <tr>
@@ -11,7 +12,6 @@
         <th>Passport</th>
         <th>View</th>
         <th>Delete</th>
-        <!-- <th>Created On</th> -->
       </tr>
     </thead>
 
@@ -25,11 +25,14 @@
         <td *ngIf="!profile.PanCard">Not Created.</td>
         <td *ngIf="profile.passport">{{profile.passport.id}}</td>
         <td *ngIf="!profile.passport">Not Created.</td>
-        <th>View</th>
+        <th>
+            <a [routerLink]="['/view-Profile/', profile._id]" ><button type="button" name="button" class="btn btn-sm btn-danger">View</button></a>
+          </th>
         <th>
           <button  class="btn btn-info" (click)="deleteUserProfile(profile.user._id)">Delete</button>
         </th>
       </tr>
+      <!-- <ngb-pagination (click)="getProfiles()" [collectionSize]="120" [(page)]="page" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination> -->
 
     </tbody>
   </table>
